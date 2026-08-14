@@ -62,25 +62,21 @@ def is_blank_image(image: Image.Image) -> bool:
 def optimize_image_for_fast_ocr(image: Image.Image) -> Image.Image:
     """
     Fast Image Optimization:
-    - Downscales oversized screenshots (max 1200px) preserving aspect ratio.
-    - Lightweight contrast normalization.
+    - Downscales oversized screenshots (max 800px) preserving aspect ratio.
+    - Uses fast Bilinear resampling instead of heavy Lanczos.
     """
     if image.mode not in ("RGB", "L"):
         image = image.convert("RGB")
 
     w, h = image.size
-    max_dim = 1200
+    max_dim = 800
 
     if w > max_dim or h > max_dim:
         scale = max_dim / float(max(w, h))
-        image = image.resize((int(w * scale), int(h * scale)), Image.Resampling.LANCZOS)
-    elif w < 600 or h < 600:
-        scale = max(2.0, 800.0 / float(max(w, h)))
-        image = image.resize((int(w * scale), int(h * scale)), Image.Resampling.LANCZOS)
+        image = image.resize((int(w * scale), int(h * scale)), Image.Resampling.BILINEAR)
 
     gray = image.convert("L")
-    enhanced = ImageEnhance.Contrast(gray).enhance(1.4)
-    return enhanced
+    return gray
 
 def is_ocr_text_garbage(text: str) -> bool:
     """
@@ -223,7 +219,8 @@ def process_ocr_with_diagnostics(image_b64: str, preferred_lang: str = "English"
             extracted_text = pytesseract.image_to_string(
                 processed_image,
                 lang=lang_config,
-                timeout=10
+                config="--psm 6",
+                timeout=20
             ).strip()
         except TimeoutExceptions:
             return {
