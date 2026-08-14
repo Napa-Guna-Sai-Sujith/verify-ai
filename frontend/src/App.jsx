@@ -57,7 +57,7 @@ function MainLayout() {
         {activePage === 'login' && <Login onNavigate={handleNavigate} />}
         {activePage === 'register' && <Register onNavigate={handleNavigate} />}
         {activePage === 'dashboard' && (user ? <Dashboard onNavigate={handleNavigate} /> : <Login onNavigate={handleNavigate} />)}
-        {activePage === 'profile' && (user ? <Profile /> : <Login onNavigate={handleNavigate} />)}
+        {activePage === 'profile' && (user ? <Profile onNavigate={handleNavigate} /> : <Login onNavigate={handleNavigate} />)}
         {activePage === 'history' && (user ? <History /> : <Login onNavigate={handleNavigate} />)}
       </main>
 

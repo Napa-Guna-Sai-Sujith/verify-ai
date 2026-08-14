@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { User, Mail, Globe, Save, CheckCircle2, AlertCircle, Loader2, Shield } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
-export default function Profile() {
+export default function Profile({ onNavigate }) {
   const { user, profile, updateProfile } = useAuth();
   
   const [fullName, setFullName] = useState(profile?.full_name || '');
@@ -31,8 +31,12 @@ export default function Profile() {
         fullName,
         preferredLanguage,
       });
-      setSuccessMsg('Profile updated successfully!');
-      setTimeout(() => setSuccessMsg(null), 4000);
+      setSuccessMsg('Profile preferences updated! Redirecting to dashboard...');
+      setTimeout(() => {
+        if (onNavigate) {
+          onNavigate('dashboard');
+        }
+      }, 1000);
     } catch (err) {
       console.error('Profile update failed:', err);
       setErrorMsg(err.message || 'Failed to update profile.');
