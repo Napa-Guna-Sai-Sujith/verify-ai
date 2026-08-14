@@ -178,7 +178,7 @@ export default function Dashboard({ onNavigate }) {
         text: textToAnalyze,
         imageBase64: imageBase64,
         preferredLanguage: profile?.preferred_language || 'English',
-        userId: user.id,
+        userId: user?.id || null,
         inputType: activeInputTab,
       });
 

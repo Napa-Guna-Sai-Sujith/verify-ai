@@ -137,7 +137,7 @@ def analyze_content(req: AnalyzeRequest):
     raw_text_val = extracted_text
     if any(pat in raw_text_val or re.search(pat, raw_text_val.lower()) for pat in [
         "share immediately", "forward to", "share with", "apply here",
-        "షేర్ చేయండి", "పంపండి", "షేర్", "శేರ್ ಮಾಡಿ", "பகிருங்கள்", "शेयर करें"
+        "షేర్ చేయండి", "పంపండి", "షేర్", "ಶೇರ್ ಮಾಡಿ", "ಶೇರ್", "ತಕ್ಷಣವೇ", "ತುರ್ತು", "பகிருங்கள்", "शेयर करें", "शेयर"
     ]):
         if "Urgent message forwarding pressure detected." not in risk_indicators:
             risk_indicators.append("Urgent message forwarding pressure detected.")
