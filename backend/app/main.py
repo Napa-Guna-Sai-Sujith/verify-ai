@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+import os
 
 from app.config import settings
 from app.routes import health, analysis, ocr, auth
@@ -11,20 +12,12 @@ app = FastAPI(
     description="Verity AI Multilingual Digital Trust Platform API",
 )
 
-# Mandatory Security Guideline: Restrict CORS origins to frontend
-origins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
-
+# CORS configuration for local and production Vercel frontend deployments
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_origin_regex=r"http://(localhost|127\.0\.0\.1)(:[0-9]+)?",
+    allow_origins=["*"],  # Allows Vercel frontend domain and local development
     allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
@@ -45,5 +38,5 @@ def root():
     }
 
 if __name__ == "__main__":
-    # Mandatory Security Rule: Listen strictly on localhost / 127.0.0.1
-    uvicorn.run("app.main:app", host="127.0.0.1", port=8000, reload=True)
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run("app.main:app", host="0.0.0.0", port=port, reload=True)
