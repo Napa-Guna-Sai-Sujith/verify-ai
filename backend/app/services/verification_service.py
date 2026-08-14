@@ -192,9 +192,7 @@ def verify_claims_against_sources(claims: List[str], text_query: str, claim_topi
                     parsed_domain = urlparse(url).netloc
                     source_type = get_source_type_for_domain(parsed_domain, claim_topic)
 
-                    relevance_desc = (
-                        f"Directly addresses {claim_topic.lower()} claim. Relevance overlap: {relevance_score}%."
-                    )
+                    relevance_desc = body[:160] if body else f"Directly addresses {claim_topic.lower()} claim. Relevance overlap: {relevance_score}%."
 
                     sources.append(
                         SourceSchema(
