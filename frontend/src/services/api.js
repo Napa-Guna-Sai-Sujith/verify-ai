@@ -103,6 +103,28 @@ export async function registerUserProfile({ email, fullName, preferredLanguage }
 }
 
 /**
+ * Update an existing user profile in Neon PostgreSQL via FastAPI
+ */
+export async function updateUserProfile({ email, fullName, preferredLanguage }) {
+  const response = await fetch(`${API_BASE_URL}/api/auth/profile`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email,
+      full_name: fullName,
+      preferred_language: preferredLanguage || 'English',
+    }),
+  });
+
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.detail || 'Failed to update profile.');
+  }
+
+  return await response.json();
+}
+
+/**
  * Fetch user profile directly from Neon PostgreSQL DB via FastAPI
  * Returns null if user not found (404), throws on real errors
  */

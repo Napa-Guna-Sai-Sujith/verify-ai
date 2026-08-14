@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { registerUserProfile, getUserProfile } from '../services/api';
+import { registerUserProfile, getUserProfile, updateUserProfile as apiUpdateUserProfile } from '../services/api';
 
 const AuthContext = createContext({});
 
@@ -91,7 +91,7 @@ export function AuthProvider({ children }) {
 
   const updateProfile = async ({ fullName, preferredLanguage }) => {
     if (!user?.email) return;
-    const updated = await registerUserProfile({
+    const updated = await apiUpdateUserProfile({
       email: user.email,
       fullName,
       preferredLanguage,
