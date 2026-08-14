@@ -17,7 +17,8 @@ VERIFIED_INSTITUTIONAL_DOMAINS = {
     "who.int", "isro.gov.in", "rbi.org.in", "pib.gov.in", "india.gov.in", "ncs.gov.in",
     "thehindu.com", "bbc.com", "reuters.com", "ndtv.com", "indianexpress.com",
     "altnews.in", "boomlive.in", "factly.in", "vanguard.org", "wikipedia.org", "w3.org",
-    "vercel.app", "onrender.com", "render.com", "netlify.app", "github.io"
+    "vercel.app", "onrender.com", "render.com", "netlify.app", "github.io",
+    "whatsapp.com", "instagram.com", "facebook.com", "twitter.com", "x.com", "linkedin.com", "telegram.org", "youtube.com"
 }
 
 KNOWN_SHORTENERS = {
@@ -34,7 +35,7 @@ COMMON_TWO_PART_TLDS = {
 }
 
 STANDARD_SUBDOMAINS = {
-    "www", "in", "uk", "us", "de", "fr", "ca", "au", "jp", "kr", "cn", "en", "eu", "ap",
+    "www", "web", "chat", "my", "link", "go", "connect", "in", "uk", "us", "de", "fr", "ca", "au", "jp", "kr", "cn", "en", "eu", "ap",
     "shop", "store", "portal", "app", "m", "mobile", "account", "support", "help",
     "auth", "login", "api", "cdn", "mail", "dev", "docs", "learn", "blog", "news", "lifestyle"
 }
