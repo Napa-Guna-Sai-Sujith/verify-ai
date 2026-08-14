@@ -24,8 +24,7 @@ export default function Login({ onNavigate }) {
       setSubmitting(true);
       await login({ email, password });
       setSuccess(true);
-      // Small delay so user sees the success flash, then App.jsx useEffect handles redirect
-      setTimeout(() => onNavigate('dashboard'), 300);
+      onNavigate('dashboard');
     } catch (err) {
       console.error('Login error:', err);
       setError(err.message || 'Sign in failed. Please check your credentials and try again.');
