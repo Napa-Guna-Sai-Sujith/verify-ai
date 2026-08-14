@@ -134,8 +134,11 @@ def analyze_content(req: AnalyzeRequest):
     full_message_claim = text_without_urls.strip()
     
     # Extract Risk Indicators for forwarding/urgency
-    clean_lower = extracted_text.lower()
-    if any(re.search(pat, clean_lower) for pat in [r"share (this )?immediately", r"forward (this )?to", r"share with \d+", r" apply here", r"ವಿಷಯವನ್ನು ಶೇರ್ ಮಾಡಿ"]):
+    raw_text_val = extracted_text
+    if any(pat in raw_text_val or re.search(pat, raw_text_val.lower()) for pat in [
+        "share immediately", "forward to", "share with", "apply here",
+        "షేర్ చేయండి", "పంపండి", "షేర్", "శేರ್ ಮಾಡಿ", "பகிருங்கள்", "शेयर करें"
+    ]):
         if "Urgent message forwarding pressure detected." not in risk_indicators:
             risk_indicators.append("Urgent message forwarding pressure detected.")
 

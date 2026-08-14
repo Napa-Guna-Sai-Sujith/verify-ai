@@ -57,14 +57,15 @@ def calculate_dynamic_trust_score(
 
     urgency_patterns = [
         r"\bshare with \d+\b", r"\bforward to \d+\b", r"\bshare immediately\b", r"\burgent alert\b",
-        r"ವಾಟ್ಸಾಪ್ ಗ್ರೂಪ್", r"ತಕ್ಷಣವೇ ಶೇರ್ ಮಾಡಿ", r"వెంటనే షೇర్ చేయండి", r"உடனே பகிருங்கள்", r"तुरंत शेयर करें"
+        r"\b\d+ మంది స్నేహితులకు\b", r"వెంటనే \d+", r"పంపండి", r"షేర్ చేయండి", r"వాట్ಸಾಪ್ ಗ್ರೂಪ್",
+        r"ತಕ್ಷಣವೇ ಶೇರ್ ಮಾಡಿ", r"వెంటనే షేర్ చేయండి", r"உடனே பகிருங்கள்", r"तुरंत शेयर करें", r"ఖాతాలో జమ"
     ]
     urgency_matches = sum(1 for pat in urgency_patterns if re.search(pat, clean_text))
     if urgency_matches > 0:
-        score -= (10 + urgency_matches * 5)
+        score -= (15 + urgency_matches * 5)
 
     # Assessment Classification
-    if has_contradicting_evidence or (url_check and url_check.status == "SUSPICIOUS") or (claim_topic == "Financial Scam / Viral" and not has_supporting_evidence):
+    if has_contradicting_evidence or (url_check and url_check.status == "SUSPICIOUS") or (claim_topic == "Financial Scam / Viral" and not has_supporting_evidence) or (urgency_matches > 0 and not has_supporting_evidence):
         assessment_type = "misleading"
         final_score = max(15, min(38, score))
     elif has_supporting_evidence or (has_official_source and score >= 70):

@@ -229,11 +229,13 @@ def classify_claim_topic(text: str, claims: List[str]) -> str:
         return "Weather / Advisory"
 
     # Financial Scam / Viral Forward / Unverified Reward
+    raw_combined = text + " " + " ".join(claims)
     if any(k in combined for k in [
         "share to receive", "forward this message", "receive ₹", "win ₹", "free reward",
-        "click here to claim", "whatsapp reward", "25,000 rupees", "₹5,000", "5000 rupees",
-        "ಆಮಿಷ", "ఇనాము", "இலவசம்", "इनाम"
-    ]):
+        "click here to claim", "whatsapp reward", "25,000", "25000", "5,000", "5000", "rupees"
+    ]) or any(k in raw_combined for k in [
+        "ఖాతాలో జమ", "స్నేహితులకు షేర్", "ఆర్థిక సహాయం", "ఉచితం", "నగదు", "ఆಮಿಷ", "ఇనాము", "இலவசம்", "इनाम", "బ్యాంక్ ఖాతా", "పంపండి", "షేర్"
+    ]) or ("₹" in raw_combined and any(u in raw_combined for u in ["share", "forward", "పంపండి", "షేర్", "ಶೇರ್", "பகிருங்கள்"])):
         return "Financial Scam / Viral"
 
     # Education / Student Benefit
