@@ -16,7 +16,8 @@ OFFICIAL_SUFFIXES = (
 VERIFIED_INSTITUTIONAL_DOMAINS = {
     "who.int", "isro.gov.in", "rbi.org.in", "pib.gov.in", "india.gov.in", "ncs.gov.in",
     "thehindu.com", "bbc.com", "reuters.com", "ndtv.com", "indianexpress.com",
-    "altnews.in", "boomlive.in", "factly.in", "vanguard.org", "wikipedia.org", "w3.org"
+    "altnews.in", "boomlive.in", "factly.in", "vanguard.org", "wikipedia.org", "w3.org",
+    "vercel.app", "onrender.com", "render.com", "netlify.app", "github.io"
 }
 
 KNOWN_SHORTENERS = {
